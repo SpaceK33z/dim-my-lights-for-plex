@@ -21,14 +21,20 @@ Open the `.env` file and fill in the variables;
 `HUE_BRIDGE_ID` - go to https://account.meethue.com/bridge and copy/paste the value next to the label "ID".
 
 For the next variables, go to https://my.meethue.com/en-us/my-devices, open the Developer Tools (F12), refresh page, go to the Network tab and search for a request that ends with `/api/0`.
+
 `HUE_TOKEN` - In the "Headers" tab, copy/paste the value after "x-token".
+
 `HUE_SCENE_THEATER` - in the "Preview" tab, click on "scenes" and copy/paste the id from the scene you want to use when Plex is playing.
+
 `HUE_SCENE_DIMMED` - in the "Preview" tab, click on "scenes" and copy/paste the id from the scene you want to use when Plex is stopped.
+
 `HUE_GROUP_ID` - in the "Preview" tab, click on "groups" and copy/paste the id from the group of Hue lights you want to use.
 
 With `PLEX_PLAYER_UUID` we can configure which player should trigger the lights to be dimmed. To know the uuid of e.g. an Apple TV or Plex Media Player, we first need to run this server.
 
-You can run the service with `node index.js`.
+<hr />
+
+Run the service with `node index.js`.
 
 Now you need to get Plex to post its data to your server. Learn how to do that here: https://support.plex.tv/hc/en-us/articles/115002267687-Webhooks. By default this service will run on port 12000.
 
