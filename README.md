@@ -2,7 +2,7 @@
 
 I have [Philips Hue Lights](http://www2.meethue.com/) and a [Plex Media Server](http://plex.tv/). When I start playing a movie or TV show on my TV, I want to automatically dim my lights and turn on lighting again when I press pause.
 
-This package acomplishes exactly that. It is highly inspired by [this blog post](https://hackernoon.com/automate-your-home-theater-lights-from-the-cloud-cdb29a8685a6), with the biggest difference that this doesn't use any external services like AWS. I already have the Plex Media Server. Furthermore I found that some crucial links in that article weren't working, so I documented everything you need here.
+This package acomplishes exactly that. It is highly inspired by [this blog post](https://hackernoon.com/automate-your-home-theater-lights-from-the-cloud-cdb29a8685a6), with the biggest difference that this doesn't use any external services like AWS. I already have the PC that runs Plex Media Server, so why not run it on that. Furthermore I found that some crucial links in that article weren't working, so I documented everything you need here.
 
 # Requirements
 
