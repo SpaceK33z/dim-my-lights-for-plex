@@ -4,6 +4,8 @@ I have [Philips Hue Lights](http://www2.meethue.com/) and a [Plex Media Server](
 
 This package acomplishes exactly that. It is highly inspired by [this blog post](https://hackernoon.com/automate-your-home-theater-lights-from-the-cloud-cdb29a8685a6), with the biggest difference that this doesn't use any external services like AWS. I already have the PC that runs Plex Media Server, so why not run it on that. Furthermore I found that some crucial links in that article weren't working, so I documented everything you need here.
 
+A nice addition is also that the lights only dim when it is dark outside (calculated based on your location).
+
 # Requirements
 
 - Node.js v6+
@@ -31,6 +33,8 @@ For the next variables, go to https://my.meethue.com/en-us/my-devices, open the 
 `HUE_GROUP_ID` - in the "Preview" tab, click on "groups" and copy/paste the id from the group of Hue lights you want to use.
 
 With `PLEX_PLAYER_UUID` we can configure which player should trigger the lights to be dimmed. To know the uuid of e.g. an Apple TV or Plex Media Player, we first need to run this server.
+
+`SUN_LATLNG` - optional; if you set this to your latitude and longitude (ex; `51.438397,5.477039`), it will only dim your lights if it is dark outside.
 
 <hr />
 
