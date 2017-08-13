@@ -26,7 +26,6 @@ function isDarkOutside() {
 
     return isWithinRange(now, duskDate, sunriseDate);
 }
-console.log('asdf', isDarkOutside());
 
 // Plex webhook event constants
 const PLAY = 'media.play';
