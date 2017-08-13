@@ -51,8 +51,8 @@ app.post('/plex_webhook', upload.single('thumb'), function(req, res, next) {
             return;
         }
         const scene = event === PLAY || event === RESUME
-        ? process.env.HUE_SCENE_THEATER // Turn the lights off because it's playing
-        : process.env.HUE_SCENE_DIMMED; // Turn the lights on because it's not playing
+            ? process.env.HUE_SCENE_THEATER // Turn the lights off because it's playing
+            : process.env.HUE_SCENE_DIMMED; // Turn the lights on because it's not playing
         // Construct Hue API body
         const body = `clipmessage={ bridgeId: "${process.env
             .HUE_BRIDGE_ID}", clipCommand: { url: "/api/0/groups/${process.env
