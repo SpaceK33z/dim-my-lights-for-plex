@@ -46,8 +46,8 @@ app.post('/plex_webhook', upload.single('thumb'), function(req, res, next) {
         PLEX_RELEVANT_TYPES.includes(Metadata.type) && // Event type is from a movie
         ([PLAY, STOP, PAUSE, RESUME].includes(event)) // Event is a valid type
     ) {
-        // If it is not dark outside, we don't care about dimming the lights.
         if (!isDarkOutside()) {
+            console.log('Skip toggling lights because it is not yet dark outside');
             return;
         }
         const scene = event === PLAY || event === RESUME
@@ -65,8 +65,8 @@ app.post('/plex_webhook', upload.single('thumb'), function(req, res, next) {
             },
         })
         .then((res) => {
-            console.log('Succesfull api response', res.body);
-        })
+            console.log('Successfully toggled lights');
+        });
     }
 
     res.sendStatus(200);
