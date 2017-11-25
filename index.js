@@ -3,7 +3,7 @@ const multer = require('multer');
 const dotenv = require('dotenv');
 const got = require('got');
 const SunCalc = require('suncalc');
-const { format, addDays, addHours, isWithinRange } = require('date-fns');
+const { addDays, addHours, isWithinRange } = require('date-fns');
 
 dotenv.config({
     path: process.env.ENV_FILE || '.env',
@@ -11,6 +11,8 @@ dotenv.config({
 
 var app = express();
 var upload = multer({ dest: '/tmp/' });
+// Allows to easily modify the current time to test things
+const now = () => new Date();
 
 function isDarkOutside() {
     const latlng = process.env.SUN_LATLNG;
@@ -19,12 +21,11 @@ function isDarkOutside() {
     }
     const [latitude, longitude] = latlng.split(',');
 
-    const now = addHours(new Date(), 1);
-    const tomorrow = addDays(new Date(), 1);
-    const sunsetDate = SunCalc.getTimes(now, latitude, longitude).sunset;
+    const tomorrow = addDays(now(), 1);
+    const sunsetDate = SunCalc.getTimes(now(), latitude, longitude).sunset;
     const sunriseDate = SunCalc.getTimes(tomorrow, latitude, longitude).sunrise;
 
-    return isWithinRange(now, sunsetDate, sunriseDate);
+    return isWithinRange(now(), addHours(sunsetDate, 1), sunriseDate);
 }
 
 // Plex webhook event constants
