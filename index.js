@@ -21,11 +21,10 @@ function isDarkOutside() {
     }
     const [latitude, longitude] = latlng.split(',');
 
-    const tomorrow = addDays(now(), 1);
+    const sunriseDate = SunCalc.getTimes(now(), latitude, longitude).sunrise;
     const sunsetDate = SunCalc.getTimes(now(), latitude, longitude).sunset;
-    const sunriseDate = SunCalc.getTimes(tomorrow, latitude, longitude).sunrise;
 
-    return isWithinRange(now(), addHours(sunsetDate, 1), sunriseDate);
+    return !isWithinRange(now(), sunriseDate, addHours(sunsetDate, 1));
 }
 
 // Plex webhook event constants
