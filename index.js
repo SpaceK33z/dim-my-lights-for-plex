@@ -9,13 +9,7 @@ dotenv.config({
     path: process.env.ENV_FILE || '.env',
 });
 
-const lightGroups = (process.env.HUE_GROUP_ID || '').split(',');
-const theaterScenes = (process.env.HUE_SCENE_THEATER || '').split(',');
-const dimmedScenes = (process.env.HUE_SCENE_DIMMED || '').split(',');
-
-if (lightGroups.length !== theaterScenes.length || lightGroups.length !== dimmedScenes.length) {
-    throw new Error('The env variables HUE_GROUP_ID, HUE_SCENE_THEATER and HUE_SCENE_DIMMED should have the same amount of values (comma-separated)');
-}
+const toggleLights = require('./lights');
 
 var app = express();
 var upload = multer({ dest: '/tmp/' });
@@ -59,33 +53,8 @@ app.post('/plex_webhook', upload.single('thumb'), function(req, res, next) {
             return;
         }
 
-        const requests = lightGroups.map((lightGroup, i) => {
-            const scene = event === PLAY || event === RESUME
-                ? theaterScenes[i] // Turn the lights off because it's playing
-                : dimmedScenes[i]; // Turn the lights on because it's not playing
-
-            // Construct Hue API body
-            const body = {
-                bridgeId: process.env.HUE_BRIDGE_ID,
-                clipCommand: {
-                    url: `/api/0/groups/${lightGroup}/action`,
-                    method: 'PUT',
-                    body: scene === 'off' ? { on: false } : { scene }
-                }
-            };
-    
-            return got.post(`https://www.meethue.com/api/sendmessage?token=${process.env.HUE_TOKEN}`, {
-                body: `clipmessage=${JSON.stringify(body)}`,
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-            });
-        });
-
-        Promise.all(requests)
-        .then((res) => {
-            console.log('Successfully toggled lights');
-        });
+        const turnOff = event === PLAY || event === RESUME;
+        toggleLights(turnOff);
     }
 
     res.sendStatus(200);
