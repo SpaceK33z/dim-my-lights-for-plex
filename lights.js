@@ -24,8 +24,6 @@ module.exports = function(turnOff) {
     // Turn the lights on because it's not playing
     const scene = turnOff ? theaterScenes[i] : dimmedScenes[i];
 
-    console.log('OKAY', scene);
-
     // Construct Hue API body
     const body = scene === 'off' ? { on: false } : { scene };
 
